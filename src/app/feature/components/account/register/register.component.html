@@ -1,0 +1,58 @@
+<div class="bg ">
+
+
+</div>
+
+<div class="container text-center mt-5">
+  <button routerLink='/account/login' class="btn btn-transparent text-white" type="submit">Login Instead<i
+      class='bx bx-right-arrow-alt'></i></button>
+</div>
+
+<main class="form-signin">
+  <h1 class="h3">Sign Up</h1>
+  <form [formGroup]="registerForm" autocomplete="off" snovalidate (ngSubmit)="registerUser(registerForm.value)">
+    <div class="form-floating">
+      <input type="email" class="form-control rounded-0"  placeholder="First Name"
+        formControlName="firstName" required>
+      <label for="floatingInput">First Name</label>
+    </div>
+    <div class="form-floating">
+      <input type="email" class="form-control rounded-0"  placeholder="Last Name"
+        formControlName="lastName" required>
+      <label for="floatingInput">Last Name</label>
+    </div>
+    <div class="form-floating">
+      <input type="email" class="form-control rounded-0"  formControlName="email"
+        placeholder="name@example.com" required>
+      <label for="floatingInput">Email address
+        <small class="text-danger small-font" *ngIf="validateControl('email') && hasError('email', 'email')"><b>(Enter a
+            valid email)</b></small>
+        <small class="text-danger small-font"
+          *ngIf="validateControl('email') && hasError('email', 'required')"><b>(Email is required)</b></small>
+      </label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control rounded-0"  placeholder="Password"
+        formControlName="password" required>
+      <label for="floatingInput">Password
+         <small class="text-danger small-font"
+          *ngIf="validateControl('password') && hasError('password', 'required')"><b>(Password is required)</b>
+        </small>
+        <small class="text-danger small-font"
+        *ngIf="validateControl('password') && hasError('password', 'pattern')"><b>(Required (A-Z), (0-9),(#,@..))</b>
+      </small>
+        </label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control rounded-0"  formControlName="confirm" placeholder="Confirm Password"
+        required>
+      <label for="floatingPassword">Confirm Password</label>
+    </div>
+
+
+
+    <button class="w-100 btn btn-lg rounded-0" type="submit" [disabled]="!registerForm.valid">Sign Up</button>
+  </form>
+  <p class="copyright pb-3">&copy; Collab</p>
+
+</main>
