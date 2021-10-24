@@ -46,7 +46,14 @@
     <div class="form-floating">
       <input type="password" class="form-control rounded-0"  formControlName="confirm" placeholder="Confirm Password"
         required>
-      <label for="floatingPassword">Confirm Password</label>
+      <label for="floatingPassword">Confirm Password
+
+        <small  class="text-danger small-font" *ngIf="validateControl('confirm') && hasError('confirm', 'required')"><b>(Confirmation is required)</b></small>
+        <small  class="text-danger small-font" *ngIf="hasError('confirm', 'mustMatch')"><b>(Passwords must match)</b></small>
+
+
+      </label>
+
     </div>
 
 
