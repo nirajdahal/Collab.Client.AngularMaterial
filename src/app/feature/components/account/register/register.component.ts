@@ -4,6 +4,7 @@ import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserForRegistrationDto } from 'src/app/shared/models/user/userForRegistrationDto';
 import { AccountService } from '../account.service';
 import {PasswordConfirmationValidatorService} from 'src/app/shared/custom-validators/password-confirmation-validator.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,11 @@ import {PasswordConfirmationValidatorService} from 'src/app/shared/custom-valida
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private _authService: AccountService,  private _passConfValidator: PasswordConfirmationValidatorService) { }
+  constructor(
+    private _authService: AccountService,  
+    private _passConfValidator: PasswordConfirmationValidatorService,
+    private _toastr: ToastrService
+    ) { }
 
   public registerForm!: FormGroup;
   ngOnInit(): void {
@@ -20,7 +25,7 @@ export class RegisterComponent implements OnInit {
       firstName: new FormControl,
       lastName: new FormControl,
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]),
+      password: new FormControl('', [Validators.required, Validators.pattern('(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,}')]),
       confirm: new FormControl('')
     })
 
@@ -52,9 +57,7 @@ export class RegisterComponent implements OnInit {
       email: registerFormValue.email
     }
     this._authService.registerUser(userRegistration).subscribe(r => {
-      console.log(r)
-    }, error => {
-      console.log(error);
+      this._toastr.success("Registration Sucessful ")
     })
   }
 
