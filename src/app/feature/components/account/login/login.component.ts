@@ -27,6 +27,13 @@ export class LoginComponent implements OnInit {
     })
 
     this._returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
+    this._authService.authChanged.subscribe(res => {
+      if(res === true){
+          this._router.navigateByUrl('/');
+      }
+    })
+
+
   }
 
   public validateControl(controlName: string) {

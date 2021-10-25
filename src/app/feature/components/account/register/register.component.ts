@@ -5,6 +5,7 @@ import { UserForRegistrationDto } from 'src/app/shared/models/user/userForRegist
 import { AccountService } from '../account.service';
 import {PasswordConfirmationValidatorService} from 'src/app/shared/custom-validators/password-confirmation-validator.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,11 +17,17 @@ export class RegisterComponent implements OnInit {
   constructor(
     private _authService: AccountService,  
     private _passConfValidator: PasswordConfirmationValidatorService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _router : Router
     ) { }
 
   public registerForm!: FormGroup;
   ngOnInit(): void {
+    this._authService.authChanged.subscribe(res => {
+      if(res === true){
+          this._router.navigateByUrl('/');
+      }
+    })
     this.registerForm = new FormGroup({
       firstName: new FormControl,
       lastName: new FormControl,
@@ -58,6 +65,7 @@ export class RegisterComponent implements OnInit {
     }
     this._authService.registerUser(userRegistration).subscribe(r => {
       this._toastr.success("Registration Sucessful ")
+      this._router.navigateByUrl("account/login")
     })
   }
 

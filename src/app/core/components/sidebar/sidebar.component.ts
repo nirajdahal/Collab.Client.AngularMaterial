@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/feature/components/account/account.service';
 
 @Component({
@@ -8,17 +10,29 @@ import { AccountService } from 'src/app/feature/components/account/account.servi
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private _accountService: AccountService) { }
+  constructor(private _accountService: AccountService, private _router: Router, private _toastr: ToastrService) { }
 
+  userName : string = ""; 
+  userEmail: string = "";
+  isUserAuthenticated : boolean = false;
   ngOnInit(): void {
+   this.checkAuthenticatedUserDetail();   
   }
-  title = 'my-app';
+  
+  private checkAuthenticatedUserDetail(){
+    this._accountService.authChanged.subscribe(res => {
+      this.isUserAuthenticated = res;
+      if(res === true){
+        this.userName= this._accountService.getCurrentUserName();
+        this.userEmail = this._accountService.getCurrentUserEmail();
+      }
+      else{
 
-  openClassName: string = "bx-menu-alt-right";
-  closeClass: string = "bx-menu";
-  defaultClassName = "bx-menu-alt-right"
-
-
+        console.log("no user")
+        this._router.navigateByUrl('account/login')
+      }
+    })
+  }
 
   btnVal = false;
 
@@ -30,9 +44,11 @@ export class SidebarComponent implements OnInit {
     this.btnVal = true;
   }
 
-
-
- 
+  logOut(){
+    this._accountService.logout();
+    this._toastr.success("Goodbye! See you again")
+    this._router.navigateByUrl('/account/login');
+  } 
 }
 
 
