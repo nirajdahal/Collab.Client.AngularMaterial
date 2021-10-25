@@ -20,13 +20,6 @@
  background-image: linear-gradient(to left bottom, #11101d, #11101d, #11101d, #11101d, #11101d);
 }
 
-body {
- display: flex;
- align-items: center;
- padding-top: 40px;
- padding-bottom: 40px;
- background-color: #f5f5f5;
-}
 
 .form-signin {
    width: 100%;
@@ -108,3 +101,7 @@ body {
 	   border-top-right-radius: 0;
    }
 }
+
+.small-font{
+  font-size: 11px;
+ }

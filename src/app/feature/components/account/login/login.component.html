@@ -12,26 +12,25 @@
     
       <h1 class="h3">Login</h1>
     
-    <form action="">
+    <form [formGroup]="loginForm" autocomplete="off" novalidate (ngSubmit)="loginUser(loginForm.value)">
 
 
       <div class="form-floating">
-        <input type="email" class="form-control rounded-0" id="floatingInput" placeholder="name@example.com" required>
-        <label for="floatingInput">Email address</label>
+        <input type="email" class="form-control rounded-0" formControlName="username" placeholder="name@example.com" required>
+        <label for="floatingInput">Email address
+          <small class="text-danger small-font" *ngIf="validateControl('username') && hasError('username', 'required')">(Email is required)</small>
+        </label>
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control rounded-0" id="floatingPassword" placeholder="Password" required>
-        <label for="floatingPassword">Password</label>
+        <input type="password" class="form-control rounded-0" formControlName="password" placeholder="Password" required>
+        <label for="floatingPassword">Password
+          <small class="text-danger small-font" *ngIf="validateControl('password') && hasError('password', 'required')">(Password is required)</small>
+
+        </label>
       </div>
 
-      <div class="checkbox mb-3">
-        <div class="form-check form-switch">
-  <input class="form-check-input" type="checkbox" value="1" name="remember_me" id="rememberMeSwitch">
-  <label class="form-check-label" for="rememberMeSwitch"> Remember me</label>
-</div>
-        
-      </div>
-      <button class="w-100 btn btn-lg rounded-0" type="submit">Sign in</button>
+  
+      <button class="w-100 btn btn-lg rounded-0" type="submit" [disabled]="!loginForm.valid">Sign in</button>
     </form>
           <p class="copyright pb-3">&copy; Collab</p>
           
