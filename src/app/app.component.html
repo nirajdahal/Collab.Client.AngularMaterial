@@ -1,13 +1,16 @@
+<div class="container">
 
-<div>
-    <app-sidebar></app-sidebar>
+        <app-sidebar></app-sidebar>
+
+    <div class="row">
+        <div class="ml-5">
+            <router-outlet></router-outlet>
+        </div>
+
+    </div>
 </div>
 
-<router-outlet></router-outlet>
 
-<ng-http-loader
-[minDuration]="300"
-spinner="sk-cube-grid"
-></ng-http-loader>
 
-  
+
+<ng-http-loader [minDuration]="300" spinner="sk-cube-grid"></ng-http-loader>

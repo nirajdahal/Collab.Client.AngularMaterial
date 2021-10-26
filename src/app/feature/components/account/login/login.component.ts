@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { UserForAuthenticationDto } from 'src/app/shared/models/user/userForAuthenticationDto';
+import { AuthResponseDto, UserForAuthenticationDto } from 'src/app/shared/models/user/userForAuthenticationDto';
 import { AccountService } from '../account.service';
 
 @Component({
@@ -53,11 +53,17 @@ export class LoginComponent implements OnInit {
       clientURI: 'http://localhost:4200/account/forgotpassword'
     }
     this._authService.loginUser('api/accounts/login', userForAuth)
-    .subscribe(res => {
-      this._toastr.success("Welcome Back");
-      setTimeout(() => {
+    .subscribe((res:any) => {
+      if(res.is2StepVerificationRequired) {
+        this._router.navigate(['/account/twostepverification'], 
+          { queryParams: { returnUrl: this._returnUrl, provider: res.provider, email: userForAuth.email }});
+      }
+      else {
+        localStorage.setItem("token", res.token);
+        this._authService.sendAuthStateChangeNotification(res.isAuthSuccessful);
         this._router.navigate([this._returnUrl]);
-      }, 1000);
+      }
+     
        
     })
   }

@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ForgotPassword } from 'src/app/shared/models/user/forgotPassword';
 import { ResetPasswordDto } from 'src/app/shared/models/user/resetPasswordDto';
 import { CustomEncoder } from 'src/app/shared/customEncoder';
+import { TwoFactorDto } from 'src/app/shared/models/user/twoFactorDto';
 
 @Injectable({
   providedIn: 'root'
@@ -46,14 +47,7 @@ export class AccountService {
   }
 
   public loginUser = (route: string, body: UserForAuthenticationDto) => {
-    return this._http.post<AuthResponseDto>(this.urlAddress + "accounts/login", body).pipe(
-      map((res: AuthResponseDto) => {
-        localStorage.setItem("token", res.token);
-
-        this.sendAuthStateChangeNotification(true);
-      })
-    )
-      ;
+    return this._http.post<AuthResponseDto>(this.urlAddress + "accounts/login", body);
   }
 
   public logout() {
@@ -92,5 +86,9 @@ export class AccountService {
     params = params.append('token', token);
     params = params.append('email', email);
     return this._http.get(this.urlAddress +"accounts/emailconfirmation", { params: params });
+  }
+
+  public twoStepLogin = ( body: TwoFactorDto) => {
+    return this._http.post<AuthResponseDto>(this.urlAddress + "accounts/twostepverification", body);
   }
 }
