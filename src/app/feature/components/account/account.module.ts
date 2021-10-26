@@ -6,6 +6,7 @@ import { AccountRoutingModule } from './account-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { EmailConfirmationComponent } from './email-confirmation/email-confirmation.component';
 
 
 
@@ -14,7 +15,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     RegisterComponent,
     LoginComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    EmailConfirmationComponent
   ],
   imports: [
     CommonModule,

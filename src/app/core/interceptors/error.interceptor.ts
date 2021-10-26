@@ -28,13 +28,13 @@ export class ErrorInterceptor implements HttpInterceptor {
             }
           }
           if (error.status === 401) {
-            this.toastr.error(error.error.message, error.error.statusCode);
+            this.toastr.error(error.error.message);
           }
           if (error.status === 403) {
-            this.toastr.error("You are not allowed to perform this action", error.error.statusCode);
+            this.toastr.error("You are not allowed to perform this action");
           }
           if (error.status === 404) {
-            this.toastr.error(error.error.message, error.status)
+            this.toastr.error(error.error.message)
             this.router.navigateByUrl('/');
           }
           if (error.status === 500) {

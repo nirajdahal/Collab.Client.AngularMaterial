@@ -18,7 +18,9 @@
       <div class="form-floating">
         <input type="email" class="form-control rounded-0" formControlName="username" placeholder="name@example.com" required>
         <label for="floatingInput">Email address
-          <small class="text-danger small-font" *ngIf="validateControl('username') && hasError('username', 'required')">(Email is required)</small>
+          <small class="text-danger small-font" *ngIf="validateControl('username') && hasError('username', 'required')">Email is required</small>
+          <small class="text-danger small-font" *ngIf="validateControl('username') && hasError('username', 'email')"><b>(Enter a
+            valid email)</b></small>
         </label>
       </div>
       <div class="form-floating">

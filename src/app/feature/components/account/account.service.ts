@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { ForgotPassword } from 'src/app/shared/models/user/forgotPassword';
 import { ResetPasswordDto } from 'src/app/shared/models/user/resetPasswordDto';
+import { CustomEncoder } from 'src/app/shared/customEncoder';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,7 @@ export class AccountService {
   }
 
   registerUser(user: UserForRegistrationDto) {
+    
     return this._http.post(this.urlAddress + "accounts/registration", user);
   }
 
@@ -83,5 +85,12 @@ export class AccountService {
 
   public resetPassword = (body : ResetPasswordDto) => {
     return this._http.post(this.urlAddress+"accounts/resetpassword", body);
+  }
+
+  public confirmEmail = (token: string, email: string) => {
+    let params = new HttpParams({ encoder: new CustomEncoder() })
+    params = params.append('token', token);
+    params = params.append('email', email);
+    return this._http.get(this.urlAddress +"accounts/emailconfirmation", { params: params });
   }
 }

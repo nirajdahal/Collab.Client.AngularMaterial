@@ -61,10 +61,11 @@ export class RegisterComponent implements OnInit {
       lastName: registerFormValue.lastName,
       password: registerFormValue.password,
       confirmPassword: registerFormValue.confirm,
-      email: registerFormValue.email
+      email: registerFormValue.email,
+      clientURI:'http://localhost:4200/account/emailconfirmation'
     }
     this._authService.registerUser(userRegistration).subscribe(r => {
-      this._toastr.success("Registration Sucessful ")
+      this._toastr.success("Registration Sucessful ","Please Check your Email")
       this._router.navigateByUrl("account/login")
     })
   }
