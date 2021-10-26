@@ -29,7 +29,7 @@ export class SidebarComponent implements OnInit {
       else{
 
         console.log("no user")
-        this._router.navigateByUrl('account/login')
+        
       }
     })
   }

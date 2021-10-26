@@ -7,6 +7,8 @@ import { AuthResponseDto, UserForAuthenticationDto } from 'src/app/shared/models
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { ForgotPassword } from 'src/app/shared/models/user/forgotPassword';
+import { ResetPasswordDto } from 'src/app/shared/models/user/resetPasswordDto';
 
 @Injectable({
   providedIn: 'root'
@@ -75,4 +77,11 @@ export class AccountService {
     return decodedToken;
   }
 
+  public forgotPassword(body: ForgotPassword) {
+    return this._http.post(this.urlAddress+"accounts/forgotpassword", body);
+  }
+
+  public resetPassword = (body : ResetPasswordDto) => {
+    return this._http.post(this.urlAddress+"accounts/resetpassword", body);
+  }
 }

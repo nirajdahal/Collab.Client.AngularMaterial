@@ -4,13 +4,17 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { AccountRoutingModule } from './account-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 
 @NgModule({
   declarations: [ 
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,

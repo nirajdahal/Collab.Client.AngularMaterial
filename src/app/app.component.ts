@@ -27,7 +27,7 @@ export class AppComponent implements OnInit{
     }
     else{
       this._authService.sendAuthStateChangeNotification(false);
-      this._router.navigateByUrl("account/login");
+      // this._router.navigateByUrl("account/login");
     }
   }
 
