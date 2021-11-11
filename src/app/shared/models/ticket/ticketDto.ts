@@ -3,10 +3,13 @@ import { Pagination } from "../common/pagination";
 export interface TicketDto {
     name: string
     description: string
-    ticketType: string
-    ticketPriority: string
-    ticketStatus: string
+    ticketType: TicketTypeDto
+    ticketPriority: TicketPriorityDto
+    ticketStatus: TicketStatusDto
     assignedDevelopers: UserDto[]
+    createdAt: Date
+
+    updatedAt: Date
 }
 
 
@@ -21,6 +24,18 @@ export interface StatusTicketDto {
 }
 
 export interface TicketStatusDto {
+    id: number
+    name: string
+    themeColor: string
+}
+
+export interface TicketPriorityDto {
+    id: number
+    name: string
+    themeColor: string
+}
+
+export interface TicketTypeDto {
     id: number
     name: string
     themeColor: string

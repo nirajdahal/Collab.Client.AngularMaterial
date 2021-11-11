@@ -13,7 +13,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { KanbanComponent } from './shared/components/kanban/kanban.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -34,6 +34,7 @@ export function tokenGetter() {
     AppRoutingModule,
     HttpClientModule,
     DragDropModule,
+    MatTooltipModule,
        NgHttpLoaderModule.forRoot(),
     ToastrModule.forRoot(),
     ToastNoAnimationModule.forRoot(),
