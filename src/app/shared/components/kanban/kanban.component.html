@@ -1,0 +1,55 @@
+<div class="container scrolling-wrapper mt-5 pb-5" cdkDropListGroup>
+    <div  *ngFor="let statusTicket of statusTicketList; let i=index" class="example-container  scolling-div">
+        
+       <div class="statusTitle" [style.borderTop]="'5px solid'" [style.borderTopColor]="statusTicket.status.themeColor">
+           
+        <p><b>{{statusTicket.status.name}}</b>&nbsp;&nbsp;{{statusTicket.count}}<p>
+       
+        </div> 
+        
+
+        <div>
+            
+            <input  
+            #searchInput 
+            name="{{statusTicket.status.name}}" 
+           
+            placeholder="Search {{statusTicket.status.name}}"
+            class="form-control rounded-0 ml-3 mr-3 text-center">
+        </div>
+        
+        
+        <div class="d-grid gap-1">
+            <button  (click)="searchVal(statusTicket, searchInput.value)" class="btn btn-primary p-0 m-0" [style.color]="statusTicket.status.themeColor" type="button">Find</button>
+            
+          </div>
+        <div class="overflow-div mt-1">
+
+
+            <div cdkDropList [cdkDropListData]="statusTicket.tickets.data" class="example-list "
+                (cdkDropListDropped)="drop($event, statusTicket.status.id)">
+                <div class="example-box" *ngFor="let ticket of statusTicket.tickets.data" cdkDrag>
+
+                    
+                    
+                    <div class="text-center">
+                        {{ticket.name}}
+                    </div>
+                    <div class="example-handle" cdkDragHandle>
+                      
+                        <svg width="24px" fill="currentColor" viewBox="0 0 24 24" class="pointerSvg">
+                            <path
+                                d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
+                            </path>
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                        </svg>
+
+                    </div>
+                </div>
+            </div>
+            <button (click)="showMore(statusTicket)">Show More</button>
+
+        </div>
+
+    </div>
+</div>

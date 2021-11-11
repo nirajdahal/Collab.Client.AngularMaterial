@@ -5,6 +5,7 @@ import { TestComponent } from './feature/components/test/test.component';
 
 const routes: Routes = [
   {path:'',component:TestComponent, canActivate:[AuthGuard]},
+  {path:'test',component:TestComponent, canActivate:[AuthGuard]},
   { path: 'account', loadChildren: () => import('./feature/components/account/account.module').then(mod => mod.AccountModule) }
 ];
 

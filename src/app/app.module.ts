@@ -9,6 +9,10 @@ import { AppComponent } from './app.component';
 import { SidebarComponent } from './core/components/sidebar/sidebar.component';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { TestComponent } from './feature/components/test/test.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { KanbanComponent } from './shared/components/kanban/kanban.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 
 export function tokenGetter() {
@@ -19,14 +23,18 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     SidebarComponent,
-    TestComponent
+    TestComponent,
+    KanbanComponent
     
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    NgHttpLoaderModule.forRoot(),
+    DragDropModule,
+       NgHttpLoaderModule.forRoot(),
     ToastrModule.forRoot(),
     ToastNoAnimationModule.forRoot(),
     JwtModule.forRoot({

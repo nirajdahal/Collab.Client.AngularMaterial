@@ -13,14 +13,16 @@
   /* Firefox */
   * {
     scrollbar-width: auto;
-    scrollbar-color: #707070;
+    scrollbar-color: #db0d0d;
   }
 
   /* Chrome, Edge, and Safari */
   *::-webkit-scrollbar {
-    width: 15px;
+    width: 9px;
+    height: 9px;
   }
 
+ 
   
 
   *::-webkit-scrollbar-thumb {
@@ -45,3 +47,5 @@ input{
 .form-control{
   border-radius: 0;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

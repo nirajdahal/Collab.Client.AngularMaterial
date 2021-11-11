@@ -1,16 +1,12 @@
-<div class="container">
-
-        <app-sidebar></app-sidebar>
-
+<div class="container-fluid">
+    <app-sidebar></app-sidebar>
     <div class="row">
-        <div class="ml-5">
-            <router-outlet></router-outlet>
+        <div class="col-2 col-md-1">
         </div>
-
+        <div class="col-10 col-md-11">
+            <!-- <router-outlet></router-outlet> -->
+        <app-kanban></app-kanban>
+        </div>
     </div>
 </div>
-
-
-
-
 <ng-http-loader [minDuration]="300" spinner="sk-cube-grid"></ng-http-loader>
