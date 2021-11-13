@@ -12,9 +12,11 @@ import { TestComponent } from './feature/components/test/test.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { KanbanComponent } from './shared/components/kanban/kanban.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatInputModule} from '@angular/material/input';
 export function tokenGetter() {
   return localStorage.getItem("token");
 }
@@ -34,6 +36,10 @@ export function tokenGetter() {
     AppRoutingModule,
     HttpClientModule,
     DragDropModule,
+    MatInputModule,
+    MatSelectModule,
+    BrowserAnimationsModule,
+    NgMultiSelectDropDownModule.forRoot(),
     MatTooltipModule,
        NgHttpLoaderModule.forRoot(),
     ToastrModule.forRoot(),

@@ -1,6 +1,7 @@
 <div class="container scrolling-wrapper mt-5 pb-5" cdkDropListGroup>
     <div *ngFor="let statusTicket of statusTicketList; let i=index" class="example-container  scolling-div">
 
+        <!-- Status Name & Count -->
         <div class="statusTitle pt-2" [style.borderTop]="'5px solid'"
             [style.borderTopColor]="statusTicket.status.themeColor">
 
@@ -9,62 +10,193 @@
 
         </div>
 
+        <!-- Search Bar-->
+        <div class="searchBar">
+            <div class="d-grid gap-1">
+                <input #searchInput name="{{statusTicket.status.name}}"
+                    placeholder="Search {{statusTicket.status.name}}"
+                    class="form-control rounded-0 ml-3 mr-3 text-center">
+                <button (click)="searchVal(statusTicket, searchInput.value)" class="btn btn-dark p-0 m-0"
+                    [style.color]="statusTicket.status.themeColor" type="button">Find</button>
 
-        <div>
-
-            <input #searchInput name="{{statusTicket.status.name}}" placeholder="Search {{statusTicket.status.name}}"
-                class="form-control rounded-0 ml-3 mr-3 text-center">
+            </div>
         </div>
 
-        <div class="d-grid gap-1">
-            <button (click)="searchVal(statusTicket, searchInput.value)" class="btn btn-dark p-0 m-0"
-                [style.color]="statusTicket.status.themeColor" type="button">Find</button>
-
-        </div>
+        <!-- Ticket List -->
         <div class="overflow-div mt-1">
-
-
+            <!-- Individual Ticket-->
             <div cdkDropList [cdkDropListData]="statusTicket.tickets.data" class="example-list "
                 (cdkDropListDropped)="drop($event, statusTicket.status.id)">
                 <div class="example-box" *ngFor="let ticket of statusTicket.tickets.data" cdkDrag>
 
-                    <div class="example-handle" cdkDragHandle>
+                    <div data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="openModalToUpdate(ticket)">
+                        <div class="example-handle" cdkDragHandle>
 
-                        <svg width="24px" fill="currentColor" viewBox="0 0 24 24" class="pointerSvg">
-                            <path
-                                d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
-                            </path>
-                            <path d="M0 0h24v24H0z" fill="none"></path>
-                        </svg>
-                        
+                            <svg width="24px" fill="currentColor" viewBox="0 0 24 24" class="pointerSvg">
+                                <path
+                                    d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
+                                </path>
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                            </svg>
+
                             {{ticket.updatedAt | date:'fullDate'}}
-                        
 
+
+                        </div>
+
+                        <div class="text-center">
+
+                            {{ticket.name}}
+                        </div>
+                        <br>
+                        <div class="text-center">
+                            <i class='bx bxs-flag' [style.color]="ticket.ticketPriority.themeColor"
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="{{ticket.ticketPriority.name}} Priority"></i>
+                            &nbsp;
+                            <i class='bx bxs-analyse' [style.color]="ticket.ticketType.themeColor"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="{{ticket.ticketType.name}}"></i>
+                        </div>
                     </div>
 
-                    <div class="text-center">
-
-                        {{ticket.name}}
-                    </div>
-                    <br>
-                    <div class="text-center">
-                        <i class='bx bxs-flag' [style.color]="ticket.ticketPriority.themeColor" data-bs-toggle="tooltip"
-                            data-bs-placement="top" title="{{ticket.ticketPriority.name}} Priority"></i>
-                        &nbsp;
-                        <i class='bx bxs-analyse' [style.color]="ticket.ticketType.themeColor" data-bs-toggle="tooltip"
-                            data-bs-placement="top" title="{{ticket.ticketType.name}}"></i>
-                    </div>
 
 
                 </div>
             </div>
-
+            <!-- Show More -->
             <div class="d-grid gap-1">
                 <button (click)="showMore(statusTicket)" class=" btn-light p-1 m-0" style="border:none" type="button">
                     Show More <i class='bx bxs-down-arrow'></i></button>
-
             </div>
         </div>
 
+    </div>
+</div>
+
+
+<!-- Modal To Update -->
+<div class="modal  fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">
+                    <Table>Update Ticket</Table>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <!-- Input for Name and Description -->
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field class="w-100" appearance="fill">
+                            <mat-label>Name</mat-label>
+                            <input matInput #message maxlength="150" [(ngModel)]="ticketUpdateName">
+                            <mat-hint align="end">{{message.value.length}} / 150</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12">
+                        <mat-form-field class="w-100" appearance="fill">
+                            <mat-label>Description</mat-label>
+                            <textarea matInput #message maxlength="300"
+                                [(ngModel)]="ticketUpdateDescription"></textarea>
+                            <mat-hint align="end">{{message.value.length}} / 300</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Ticket Priority Update -->
+                <div class="row clearfix">
+                    <div class="col-5 col-sm-4 col-lg-4 pt-2 ml-3">
+
+
+                        <p *ngIf="ticketToModify !==undefined && ticketToUpdatePriority ===undefined "
+                            class=" rounded-circle ">
+
+                            Priority : {{ticketToModify.ticketPriority.name}} <i class='bx bxs-flag'
+                                [style.color]="ticketToModify.ticketPriority.themeColor"></i>
+                        </p>
+                        <p *ngIf="ticketToUpdatePriority !==undefined " class=" rounded-circle">
+
+                            Priority : {{ticketToUpdatePriority.name}} <i class='bx bxs-flag'
+                                [style.color]="ticketToUpdatePriority.themeColor"></i>
+                        </p>
+                    </div>
+                    <div class="col-6 col-sm-5  col-lg-4 float-start">
+                        <select class="form-select form-select-sm rounded-0"
+                            (change)="selectedTicketToUpdatePriority($event)">
+
+                            <option *ngFor="let priority of priorityList" class="p-2 rounded-0" [ngValue]=priority>
+                                {{priority.name}}
+                            </option>
+
+                        </select>
+                    </div>
+                </div>
+                <!-- Ticket Type Update -->
+                <div class="row clearfix">
+                    <div class="col-5 col-sm-4 col-lg-4 pt-2 ml-3">
+                        <p *ngIf="ticketToModify !==undefined && ticketToUpdateType ===undefined "
+                            class=" rounded-circle ">
+
+                            Type : {{ticketToModify.ticketType.name}} <i class='bx bxs-analyse'
+                                [style.color]="ticketToModify.ticketType.themeColor"></i>
+                        </p>
+                        <p *ngIf="ticketToUpdateType !==undefined " class=" rounded-circle">
+
+                            Type : {{ticketToUpdateType.name}} <i class='bx bxs-analyse'
+                                [style.color]="ticketToUpdateType.themeColor"></i>
+                        </p>
+                    </div>
+                    <div class="col-6 col-sm-5  col-lg-4 float-start">
+                        <select class="form-select form-select-sm rounded-0"
+                            (change)="selectedTicketToUpdateType($event)">
+
+                            <option *ngFor="let type of typeList" class="p-2 rounded-0" [ngValue]=type>
+                                {{type.name}}
+                            </option>
+
+                        </select>
+                    </div>
+                </div>
+                <!-- Ticket Status Update -->
+                <div class="row clearfix">
+                    <div class="col-5 col-sm-4 col-lg-4 pt-2 ml-3">
+                        <p *ngIf="ticketToModify !==undefined && ticketToUpdateStatus ===undefined "
+                            class=" rounded-circle ">
+
+                            Type : {{ticketToModify.ticketStatus.name}}
+
+                        </p>
+                        <p *ngIf="ticketToUpdateStatus !==undefined " class=" rounded-circle">
+
+                            Type : {{ticketToUpdateStatus.name}}
+                        </p>
+                    </div>
+                    <div class="col-6 col-sm-5  col-lg-4 float-start">
+                        <select class="form-select form-select-sm rounded-0"
+                            (change)="selectedTicketToUpdateStatus($event)">
+
+                            <option *ngFor="let status of statusList" class="p-2 rounded-0" [ngValue]=status>
+                                {{status.name}}
+                            </option>
+
+                        </select>
+                    </div>
+                </div>
+
+                <ng-multiselect-dropdown [placeholder]="'custom placeholder'" [settings]="dropdownSettings"
+                    [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
+                    (onSelectAll)="onSelectAll($event)">
+                </ng-multiselect-dropdown>
+
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Understood</button> -->
+            </div>
+        </div>
     </div>
 </div>
