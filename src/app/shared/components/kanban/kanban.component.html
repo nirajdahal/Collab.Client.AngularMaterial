@@ -13,7 +13,7 @@
         <!-- Search Bar-->
         <div class="searchBar">
             <div class="d-grid gap-1">
-                <input #searchInput name="{{statusTicket.status.name}}"
+                <input  #searchInput name="{{statusTicket.status.name}}"
                     placeholder="Search {{statusTicket.status.name}}"
                     class="form-control rounded-0 ml-3 mr-3 text-center">
                 <button (click)="searchVal(statusTicket, searchInput.value)" class="btn btn-dark p-0 m-0"
@@ -32,19 +32,19 @@
                     <div data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="openModalToUpdate(ticket)">
                         <div class="example-handle" cdkDragHandle>
 
-                            <svg width="24px" fill="currentColor" viewBox="0 0 24 24" class="pointerSvg">
+                            <svg width="20px" fill="currentColor" viewBox="0 0 24 24" class="pointerSvg">
                                 <path
                                     d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
                                 </path>
                                 <path d="M0 0h24v24H0z" fill="none"></path>
                             </svg>
 
-                            {{ticket.updatedAt | date:'fullDate'}}
+                            <small>{{ticket.updatedAt | date:'fullDate'}}</small>
 
 
                         </div>
 
-                        <div class="text-center">
+                        <div class="text-left">
 
                             {{ticket.name}}
                         </div>
@@ -73,7 +73,6 @@
     </div>
 </div>
 
-
 <!-- Modal To Update -->
 <div class="modal  fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -87,7 +86,7 @@
             </div>
 
             <!-- Modal Body -->
-            <div class="modal-body">
+            <div class="modal-body pb-1 mb-0">
                 <!-- Input for Name and Description -->
                 <div class="row">
                     <div class="col-12">
@@ -187,16 +186,19 @@
                     </div>
                 </div>
 
-                <ng-multiselect-dropdown [placeholder]="'custom placeholder'" [settings]="dropdownSettings"
-                    [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
-                    (onSelectAll)="onSelectAll($event)">
-                </ng-multiselect-dropdown>
+                <div class="row">
+                    <ng-multiselect-dropdown [placeholder]="'Select Developers'" [settings]="dropdownSettings"
+                        [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onDeveloperUpdateSelect($event)"
+                        (onSelectAll)="onDeveloperUpdateSelectAll($event)">
+                    </ng-multiselect-dropdown>
+                </div>
+                <div class="row mt-2">
+                    <button class="btn">Update</button>
+                </div>
+
 
             </div>
-            <div class="modal-footer">
-                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Understood</button> -->
-            </div>
+          
         </div>
     </div>
 </div>

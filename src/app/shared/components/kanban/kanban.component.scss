@@ -1,16 +1,18 @@
 .example-container {
-  width: 400px;
-  max-width: 120%;
+  
+  width: 340px;
+  max-width: 130%;
   margin: 0 25px 25px 0;
   display: inline-block;
   vertical-align: top;
 }
 
 .example-list {
-  border: solid 1px #ccc;
-  min-height: 60px;
-  background: white;
- cursor:zoom-in;
+ // border: solid 1px #ccc;
+ 
+  min-height: 50px;
+  
+ cursor:pointer;
   overflow: hidden;
   display: block;
 
@@ -21,7 +23,7 @@
 
 .overflow-div {
   overflow-y: scroll;
-  height: 50vh;
+  height: 60vh;
 }
 .pointerSvg {
   cursor: move;
@@ -37,13 +39,14 @@
 }
 .example-box {
   padding: 10px 10px;
-  border-bottom: solid 1px #ccc;
-  color: rgba(0, 0, 0, 0.87);
   
+  color: rgba(0, 0, 0, 0.87);
+  margin-top: 10px;
   
   box-sizing: border-box;
-  background: white;
+  background: #ffffff;
   font-size: 14px;
+  transition: background 0.8s;
 }
 
 .cdk-drag-preview {
@@ -85,7 +88,6 @@ i{
   cursor: pointer;
 }
 .example-box:hover{
-  border:0.05px solid rgb(104, 104, 104);
-  
+  background: rgb(17, 16, 29);
+  color: white;
 }
-
